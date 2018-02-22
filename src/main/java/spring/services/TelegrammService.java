@@ -6,7 +6,10 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 import org.telegram.telegrambots.TelegramBotsApi;
 import org.telegram.telegrambots.exceptions.TelegramApiException;
+import spring.restClient.TestClient;
 import telegramm.SimpleCommandTelegrammBot;
+
+import javax.ejb.EJB;
 
 /**
  * create time 21.02.2018
@@ -17,6 +20,9 @@ import telegramm.SimpleCommandTelegrammBot;
 @Service
 public class TelegrammService {
     public static final Logger LOG = LoggerFactory.getLogger(TelegrammService.class);
+
+    @EJB
+    TestClient testClient;
 
     private TelegramBotsApi telegramBotsApi;
     private SimpleCommandTelegrammBot simpleCommandTelegrammBot;

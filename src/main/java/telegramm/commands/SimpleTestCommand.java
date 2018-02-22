@@ -7,7 +7,10 @@ import org.telegram.telegrambots.bots.AbsSender;
 import org.telegram.telegrambots.bots.commands.BotCommand;
 import org.telegram.telegrambots.exceptions.TelegramApiException;
 import org.telegram.telegrambots.logging.BotLogger;
+import spring.restClient.TestClient;
 import telegramm.consts.TagNameConst;
+
+import javax.ejb.EJB;
 
 /**
  * create time 21.02.2018
@@ -20,8 +23,11 @@ public class SimpleTestCommand extends BotCommand {
         super("test", "Say test to this bot");
     }
 
+    TestClient client = new TestClient();
+
     @Override
     public void execute(AbsSender absSender, User user, Chat chat, String[] arguments) {
+        client.getTestMessage();
         String userName = chat.getUserName();
         if (userName == null || userName.isEmpty()) {
             userName = user.getFirstName() + " " + user.getLastName();
@@ -33,6 +39,9 @@ public class SimpleTestCommand extends BotCommand {
             messageTextBuilder.append("Thank you so much for your kind words:\n");
             messageTextBuilder.append(String.join(" ", arguments));
         }
+
+        messageTextBuilder.append("\n").append(client.getTestMessage()).append("\n");
+
 
         SendMessage answer = new SendMessage();
         answer.setChatId(chat.getId().toString());
