@@ -27,7 +27,6 @@ public class SimpleTestCommand extends BotCommand {
 
     @Override
     public void execute(AbsSender absSender, User user, Chat chat, String[] arguments) {
-        client.getTestMessage();
         String userName = chat.getUserName();
         if (userName == null || userName.isEmpty()) {
             userName = user.getFirstName() + " " + user.getLastName();
@@ -38,9 +37,10 @@ public class SimpleTestCommand extends BotCommand {
             messageTextBuilder.append("\n");
             messageTextBuilder.append("Thank you so much for your kind words:\n");
             messageTextBuilder.append(String.join(" ", arguments));
+            messageTextBuilder.append("\n").append(client.getTestMessage(arguments[0])).append("\n");
         }
 
-        messageTextBuilder.append("\n").append(client.getTestMessage()).append("\n");
+
 
 
         SendMessage answer = new SendMessage();

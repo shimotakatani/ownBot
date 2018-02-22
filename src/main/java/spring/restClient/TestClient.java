@@ -1,5 +1,6 @@
 package spring.restClient;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
@@ -27,21 +28,33 @@ public class TestClient {
 
     private HttpClient client = new DefaultHttpClient();
 
+    private ObjectMapper mapper = new ObjectMapper();
+
     public void initTestClient() {
 
     }
 
-    public String getTestMessage(){
+    public String getTestMessage(String message){
         try {
-            HttpGet request = new HttpGet(getSocialHostAddress() + "/test");
+            String uri = getSocialHostAddress() + "/test";
+            if (message != null) {
+                uri += "?message=" + message;
+            }
+            HttpGet request = new HttpGet(uri);
             HttpResponse response = client.execute(request);
+            if (response.getStatusLine().getStatusCode() == 200){
+
             BufferedReader rd = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
+
             String line = "";
-            while ((line = rd.readLine()) != null) {
+            if ((line = rd.readLine()) != null) {
                 System.out.println(line);
                 return line;
             }
             return line;
+            }
+            return "ПРОБЛЕМА";
+
 
         } catch (IOException e){
             return "ОШИБКА";
@@ -49,6 +62,6 @@ public class TestClient {
     }
 
     public String getSocialHostAddress(){
-        return "http://" + "localhost" + ":" + "8090" + "/api";
+        return "http://" + "localhost" + ":" + "8090";
     }
 }
