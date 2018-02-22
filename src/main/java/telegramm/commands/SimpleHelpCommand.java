@@ -20,14 +20,14 @@ public class SimpleHelpCommand extends BotCommand {
     private final ICommandRegistry commandRegistry;
 
     public SimpleHelpCommand(ICommandRegistry commandRegistry) {
-        super("help", "Get all the commands this bot provides");
+        super("help", "Получить все команды для бота");
         this.commandRegistry = commandRegistry;
     }
 
     @Override
     public void execute(AbsSender absSender, User user, Chat chat, String[] strings) {
         StringBuilder helpMessageBuilder = new StringBuilder("<b>Help [Chat ID:'" + chat.getId().toString() + "']</b>\n");
-        helpMessageBuilder.append("These are the registered commands for this Bot:\n\n");
+        helpMessageBuilder.append("Доступные команды для данного бота:\n\n");
 
         for (BotCommand botCommand : commandRegistry.getRegisteredCommands()) {
             helpMessageBuilder.append(botCommand.toString()).append("\n\n");

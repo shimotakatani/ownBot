@@ -10,17 +10,14 @@ import org.telegram.telegrambots.logging.BotLogger;
 import spring.restClient.TestClient;
 import telegramm.consts.TagNameConst;
 
-import javax.ejb.EJB;
-
 /**
- * create time 21.02.2018
+ * create time 22.02.2018
  *
  * @author nponosov
  */
-public class SimpleTestCommand extends BotCommand {
-
-    public SimpleTestCommand() {
-        super("test", "Скажи что-нибудь боту и узнай ответ от двух серверов");
+public class StartGameCommand extends BotCommand {
+    public StartGameCommand() {
+        super("start", "Начинаем игру с самолётом");
     }
 
     TestClient client = new TestClient();
