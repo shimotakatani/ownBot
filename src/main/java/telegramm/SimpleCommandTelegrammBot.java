@@ -6,6 +6,7 @@ import org.telegram.telegrambots.api.objects.Update;
 import org.telegram.telegrambots.bots.TelegramLongPollingCommandBot;
 import org.telegram.telegrambots.exceptions.TelegramApiException;
 import org.telegram.telegrambots.logging.BotLogger;
+import telegramm.commands.GameCommand;
 import telegramm.commands.SimpleHelpCommand;
 import telegramm.commands.SimpleTestCommand;
 import telegramm.commands.TimeCommand;
@@ -27,6 +28,7 @@ public class SimpleCommandTelegrammBot extends TelegramLongPollingCommandBot {
         this.botUserName = botUserName;
         register(new SimpleTestCommand());
         register(new TimeCommand());
+        register(new GameCommand());
 
         SimpleHelpCommand helpCommand = new SimpleHelpCommand(this);
         register(helpCommand);
