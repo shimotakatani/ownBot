@@ -9,6 +9,7 @@ import org.telegram.telegrambots.exceptions.TelegramApiException;
 import org.telegram.telegrambots.logging.BotLogger;
 import spring.restClient.TestClient;
 import telegramm.consts.TagNameConst;
+import telegramm.services.Emoji;
 
 /**
  * create time 26.02.2018
@@ -35,7 +36,9 @@ public class GameCommand extends BotCommand {
 
         SendMessage answer = new SendMessage();
         answer.setChatId(chat.getId().toString());
-        answer.setText(messageTextBuilder.toString());
+
+        String messageString = messageTextBuilder.toString().replace("1", Emoji.GRASS.toString()).replace("0", Emoji.WHITE_SQUARE.toString()).replace("3", Emoji.RABBIT_FACE.toString());
+        answer.setText(messageString);
 
         try {
             absSender.sendMessage(answer);

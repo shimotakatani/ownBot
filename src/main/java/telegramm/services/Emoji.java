@@ -163,7 +163,12 @@ public enum Emoji {
     LARGE_ORANGE_DIAMOND('\uD83D', '\uDD36'),
     HUNDRED_POINTS_SYMBOL('\uD83D', '\uDCAF'),
     ROUND_PUSHPIN('\uD83D', '\uDCCD'),
-    WAVING_HAND_SIGN('\uD83D', '\uDC4B');
+    WAVING_HAND_SIGN('\uD83D', '\uDC4B'),
+
+    //game
+    WHITE_SQUARE(null, '\u2B1C'),
+    GRASS('\uD83C','\uDF3F'),
+    RABBIT_FACE('\uD83D','\uDC30');
 
     Character firstChar;
     Character secondChar;
