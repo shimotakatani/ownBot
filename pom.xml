@@ -41,9 +41,10 @@
     <build>
         <finalName>test-bot</finalName>
         <plugins>
-            <plugin><!-- Include if you want to make an executable jar[FAT JAR which includes all  dependencies along with sprinboot loader] that you can run on commandline using java -jar NAME -->
+            <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>1.4.2.RELEASE</version>
             </plugin>
         </plugins>
     </build>

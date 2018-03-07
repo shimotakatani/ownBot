@@ -32,13 +32,22 @@ public class GameCommand extends BotCommand {
         }
 
         StringBuilder messageTextBuilder = new StringBuilder("Данные об игре ").append(userName).append("[" + chat.getId() + "]");
-        messageTextBuilder.append("\n").append(client.getGameMessage()).append("\n");
-
+        String clientMessage = client.getGameMessage();
+        String mapString = clientMessage.substring(0, clientMessage.lastIndexOf("\n"));
+        String rabbitString = clientMessage.substring(clientMessage.lastIndexOf("\n"), clientMessage.length());
+        messageTextBuilder.append("\n")
+                .append(mapString
+                        .replace("1", Emoji.GRASS.toString())
+                        .replace("0", Emoji.WHITE_SQUARE.toString())
+                        .replace("3", Emoji.RABBIT_FACE.toString())
+                        .replace("4", Emoji.WALL.toString())
+                )
+                .append("\n");
+        messageTextBuilder.append(rabbitString);
         SendMessage answer = new SendMessage();
         answer.setChatId(chat.getId().toString());
 
-        String messageString = messageTextBuilder.toString().replace("1", Emoji.GRASS.toString()).replace("0", Emoji.WHITE_SQUARE.toString()).replace("3", Emoji.RABBIT_FACE.toString());
-        answer.setText(messageString);
+        answer.setText(messageTextBuilder.toString());
 
         try {
             absSender.sendMessage(answer);
