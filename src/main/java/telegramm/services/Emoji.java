@@ -167,6 +167,7 @@ public enum Emoji {
 
     //game
     WHITE_SQUARE(null, '\u2B1C'),
+    BLACK_SQUARE(null, '\u25FC'),
     GRASS('\uD83C','\uDF3F'),
     RABBIT_FACE('\uD83D','\uDC30'),
     WALL('\uD83D','\uDEA7'),

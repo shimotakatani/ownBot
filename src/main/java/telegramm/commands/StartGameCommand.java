@@ -9,6 +9,7 @@ import org.telegram.telegrambots.exceptions.TelegramApiException;
 import org.telegram.telegrambots.logging.BotLogger;
 import spring.restClient.TestClient;
 import telegramm.consts.TagNameConst;
+import telegramm.services.MapDeserializationService;
 
 /**
  * create time 22.02.2018
@@ -17,7 +18,7 @@ import telegramm.consts.TagNameConst;
  */
 public class StartGameCommand extends BotCommand {
     public StartGameCommand() {
-        super("start", "Начинаем игру с самолётом");
+        super("start", "Начинаем игру с зайцем");
     }
 
     TestClient client = new TestClient();
@@ -28,19 +29,23 @@ public class StartGameCommand extends BotCommand {
         if (userName == null || userName.isEmpty()) {
             userName = user.getFirstName() + " " + user.getLastName();
         }
-
-        StringBuilder messageTextBuilder = new StringBuilder("Привет ").append(userName).append("["+chat.getId()+"]");
-        if (arguments != null && arguments.length > 0) {
-            messageTextBuilder.append("\n");
-            messageTextBuilder.append("Спасибо Вам за эти слова:\n");
-            messageTextBuilder.append(String.join(" ", arguments));
-            messageTextBuilder.append("\n").append(client.getTestMessage(arguments[0])).append("\n");
-        }
-
         SendMessage answer = new SendMessage();
-        answer.setChatId(chat.getId().toString());
-        answer.setText(messageTextBuilder.toString());
+        StringBuilder messageTextBuilder = new StringBuilder("Данные об игре ").append(userName).append("[" + chat.getId() + "]");
+        String clientMessage = client.getStartMessage(chat.getId());
+        if (clientMessage.contains("\n")) {
+            String mapString = clientMessage.substring(0, clientMessage.lastIndexOf("\n"));
+            String rabbitString = clientMessage.substring(clientMessage.lastIndexOf("\n"), clientMessage.length());
+            messageTextBuilder.append("\n")
+                    .append(MapDeserializationService.getMapDeserialization(mapString))
+                    .append("\n");
+            messageTextBuilder.append(rabbitString);
 
+            answer.setChatId(chat.getId().toString());
+            answer.setText(messageTextBuilder.toString());
+        } else {
+            answer.setChatId(chat.getId().toString());
+            answer.setText(clientMessage);
+        }
         try {
             absSender.sendMessage(answer);
         } catch (TelegramApiException e) {

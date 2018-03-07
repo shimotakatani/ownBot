@@ -56,7 +56,7 @@ public class TestClient {
             return response.toString();
     }
 
-    public String getGameMessage() {
+    public String getGameMessage(Long chatId) {
 //        String uri = getSocialHostAddress() + "/game";
 //
 //        UriComponentsBuilder builder = UriComponentsBuilder
@@ -65,18 +65,33 @@ public class TestClient {
 //        RestTemplate restTemplate = new RestTemplate();
 //        MessageDto response = restTemplate.getForObject(builder.toUriString(), MessageDto.class);
         CloseableHttpClient httpclient = HttpClients.createDefault();
-        HttpGet httpGet = new HttpGet(getSocialHostAddress() + "/game");
+        HttpGet httpGet = new HttpGet(getSocialHostAddress() + "/game?chatId=" + chatId);
         try {
             CloseableHttpResponse response1 = httpclient.execute(httpGet);
             String result = IOUtils.toString(response1.getEntity().getContent(), StandardCharsets.UTF_8);
             ObjectMapper mapper = new ObjectMapper();
-            MessageDto newHuman = mapper.readValue(result, MessageDto.class);
-            return newHuman.message;
+            MessageDto messageDto = mapper.readValue(result, MessageDto.class);
+            return messageDto.message;
         } catch (IOException e) {
             e.printStackTrace();
             return "";
         }
 
+    }
+
+    public String getStartMessage(Long chatId){
+        CloseableHttpClient httpclient = HttpClients.createDefault();
+        HttpGet httpGet = new HttpGet(getSocialHostAddress() + "/start?chatId=" + chatId);
+        try {
+            CloseableHttpResponse response1 = httpclient.execute(httpGet);
+            String result = IOUtils.toString(response1.getEntity().getContent(), StandardCharsets.UTF_8);
+            ObjectMapper mapper = new ObjectMapper();
+            MessageDto messageDto = mapper.readValue(result, MessageDto.class);
+            return messageDto.message;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return "";
+        }
     }
 
     public String getSocialHostAddress(){

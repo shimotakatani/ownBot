@@ -6,10 +6,7 @@ import org.telegram.telegrambots.api.objects.Update;
 import org.telegram.telegrambots.bots.TelegramLongPollingCommandBot;
 import org.telegram.telegrambots.exceptions.TelegramApiException;
 import org.telegram.telegrambots.logging.BotLogger;
-import telegramm.commands.GameCommand;
-import telegramm.commands.SimpleHelpCommand;
-import telegramm.commands.SimpleTestCommand;
-import telegramm.commands.TimeCommand;
+import telegramm.commands.*;
 import telegramm.services.Emoji;
 
 /**
@@ -29,6 +26,7 @@ public class SimpleCommandTelegrammBot extends TelegramLongPollingCommandBot {
         register(new SimpleTestCommand());
         register(new TimeCommand());
         register(new GameCommand());
+        register(new StartGameCommand());
 
         SimpleHelpCommand helpCommand = new SimpleHelpCommand(this);
         register(helpCommand);
