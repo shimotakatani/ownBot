@@ -64,33 +64,40 @@ public class TestClient {
 //
 //        RestTemplate restTemplate = new RestTemplate();
 //        MessageDto response = restTemplate.getForObject(builder.toUriString(), MessageDto.class);
-        CloseableHttpClient httpclient = HttpClients.createDefault();
-        HttpGet httpGet = new HttpGet(getSocialHostAddress() + "/game?chatId=" + chatId);
-        try {
-            CloseableHttpResponse response1 = httpclient.execute(httpGet);
-            String result = IOUtils.toString(response1.getEntity().getContent(), StandardCharsets.UTF_8);
-            ObjectMapper mapper = new ObjectMapper();
-            MessageDto messageDto = mapper.readValue(result, MessageDto.class);
-            return messageDto.message;
-        } catch (IOException e) {
-            e.printStackTrace();
-            return "";
-        }
+        return getMessageDto(getSocialHostAddress() + "/game?chatId=" + chatId).message;
 
     }
 
     public String getStartMessage(Long chatId){
-        CloseableHttpClient httpclient = HttpClients.createDefault();
-        HttpGet httpGet = new HttpGet(getSocialHostAddress() + "/start?chatId=" + chatId);
+        return getMessageDto(getSocialHostAddress() + "/start?chatId=" + chatId).message;
+    }
+
+    public String getNameMessage(Long chatId, String name){
+        String uri = getSocialHostAddress() + "/name?chatId=" + chatId;
+        if (name != null && name.length() > 0) uri = uri + "&name=" + name;
+        return getMessageDto(uri).message;
+    }
+
+    public String getScoreMessage(Long chatId){
+        return getMessageDto(getSocialHostAddress() + "/score?chatId=" + chatId).message;
+    }
+
+    private MessageDto getMessageDto(String uri){
         try {
-            CloseableHttpResponse response1 = httpclient.execute(httpGet);
-            String result = IOUtils.toString(response1.getEntity().getContent(), StandardCharsets.UTF_8);
-            ObjectMapper mapper = new ObjectMapper();
-            MessageDto messageDto = mapper.readValue(result, MessageDto.class);
-            return messageDto.message;
-        } catch (IOException e) {
+//            CloseableHttpClient httpclient = HttpClients.createDefault();
+//            HttpGet httpGet = new HttpGet(uri);
+//            CloseableHttpResponse response1 = httpclient.execute(httpGet);
+//            String result = IOUtils.toString(response1.getEntity().getContent(), StandardCharsets.UTF_8);
+//            ObjectMapper mapper = new ObjectMapper();
+//            return mapper.readValue(result, MessageDto.class);
+
+            UriComponentsBuilder builder = UriComponentsBuilder.fromUriString(uri);
+            RestTemplate restTemplate = new RestTemplate();
+            MessageDto response = restTemplate.getForObject(builder.toUriString(), MessageDto.class);
+            return response;
+        } catch (Exception e) {
             e.printStackTrace();
-            return "";
+            return new MessageDto();
         }
     }
 

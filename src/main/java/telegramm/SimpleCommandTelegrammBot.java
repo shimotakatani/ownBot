@@ -27,6 +27,8 @@ public class SimpleCommandTelegrammBot extends TelegramLongPollingCommandBot {
         register(new TimeCommand());
         register(new GameCommand());
         register(new StartGameCommand());
+        register(new NameCommand());
+        register(new ScoreCommand());
 
         SimpleHelpCommand helpCommand = new SimpleHelpCommand(this);
         register(helpCommand);

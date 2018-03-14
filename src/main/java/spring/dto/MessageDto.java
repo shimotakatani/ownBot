@@ -10,8 +10,8 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @JsonIgnoreProperties
 public class MessageDto {
 
-    public String message;
-    public int chatId;
+    public String message = "";
+    public int chatId = 0;
 
     public MessageDto(){
 
