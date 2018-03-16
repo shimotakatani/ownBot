@@ -7,6 +7,7 @@ import org.telegram.telegrambots.bots.AbsSender;
 import org.telegram.telegrambots.bots.commands.BotCommand;
 import org.telegram.telegrambots.exceptions.TelegramApiException;
 import org.telegram.telegrambots.logging.BotLogger;
+import spring.dto.MessageDto;
 import spring.restClient.TestClient;
 import telegramm.consts.TagNameConst;
 import telegramm.services.MapDeserializationService;
@@ -31,14 +32,14 @@ public class StartGameCommand extends BotCommand {
         }
         SendMessage answer = new SendMessage();
         StringBuilder messageTextBuilder = new StringBuilder("Данные об игре ").append(userName).append("[" + chat.getId() + "]");
-        String clientMessage = client.getStartMessage(chat.getId());
-        if (clientMessage.contains("\n")) {
-            String mapString = clientMessage.substring(0, clientMessage.lastIndexOf("\n"));
-            String rabbitString = clientMessage.substring(clientMessage.lastIndexOf("\n"), clientMessage.length());
+        MessageDto messageDto = client.getStartMessage(chat.getId());
+        String clientMessage = messageDto.mapString;
+        if (clientMessage.length() > 0) {
             messageTextBuilder.append("\n")
-                    .append(MapDeserializationService.getMapDeserialization(mapString))
+                    .append(MapDeserializationService.getMapDeserialization(clientMessage))
                     .append("\n");
-            messageTextBuilder.append(rabbitString);
+            messageTextBuilder.append(messageDto.timeString).append("\n");
+            messageTextBuilder.append(messageDto.message);
 
             answer.setChatId(chat.getId().toString());
             answer.setText(messageTextBuilder.toString());

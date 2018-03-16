@@ -15,6 +15,7 @@ import spring.dto.MessageDto;
 
 import javax.inject.Named;
 import java.io.IOException;
+import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
 
 /**
@@ -56,7 +57,7 @@ public class TestClient {
             return response.toString();
     }
 
-    public String getGameMessage(Long chatId) {
+    public MessageDto getGameMessage(Long chatId) {
 //        String uri = getSocialHostAddress() + "/game";
 //
 //        UriComponentsBuilder builder = UriComponentsBuilder
@@ -64,12 +65,12 @@ public class TestClient {
 //
 //        RestTemplate restTemplate = new RestTemplate();
 //        MessageDto response = restTemplate.getForObject(builder.toUriString(), MessageDto.class);
-        return getMessageDto(getSocialHostAddress() + "/game?chatId=" + chatId).message;
+        return getMessageDto(getSocialHostAddress() + "/game?chatId=" + chatId);
 
     }
 
-    public String getStartMessage(Long chatId){
-        return getMessageDto(getSocialHostAddress() + "/start?chatId=" + chatId).message;
+    public MessageDto getStartMessage(Long chatId){
+        return getMessageDto(getSocialHostAddress() + "/start?chatId=" + chatId);
     }
 
     public String getNameMessage(Long chatId, String name){
@@ -94,6 +95,7 @@ public class TestClient {
             UriComponentsBuilder builder = UriComponentsBuilder.fromUriString(uri);
             RestTemplate restTemplate = new RestTemplate();
             MessageDto response = restTemplate.getForObject(builder.toUriString(), MessageDto.class);
+            response.message = URLDecoder.decode(response.message, "UTF-8");
             return response;
         } catch (Exception e) {
             e.printStackTrace();

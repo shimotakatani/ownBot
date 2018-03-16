@@ -11,13 +11,15 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 public class MessageDto {
 
     public String message = "";
-    public int chatId = 0;
+    public Long chatId = 0L;
+    public String mapString = "";
+    public String timeString = "";
 
     public MessageDto(){
 
     }
 
-    public MessageDto(String message, int chatId){
+    public MessageDto(String message, Long chatId){
         this.message = message;
         this.chatId = chatId;
     }
