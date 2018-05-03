@@ -12,6 +12,8 @@ import telegramm.consts.TagNameConst;
 
 import javax.ejb.EJB;
 
+import static telegramm.SimpleCommandTelegrammBot.setButtons;
+
 /**
  * create time 21.02.2018
  *
@@ -45,6 +47,8 @@ public class SimpleTestCommand extends BotCommand {
         answer.setText(messageTextBuilder.toString());
 
         try {
+            answer.enableMarkdown(true);
+            setButtons(answer);
             absSender.sendMessage(answer);
         } catch (TelegramApiException e) {
             BotLogger.error(TagNameConst.LOGTAG_TEST, e);

@@ -11,6 +11,8 @@ import spring.restClient.TestClient;
 import telegramm.consts.TagNameConst;
 import telegramm.services.MapDeserializationService;
 
+import static telegramm.SimpleCommandTelegrammBot.setButtons;
+
 /**
  * create time 09.03.2018
  *
@@ -48,6 +50,8 @@ public class NameCommand extends BotCommand {
             answer.setText(clientMessage);
         }
         try {
+//            answer.enableMarkdown(true);
+//            setButtons(answer);
             absSender.sendMessage(answer);
         } catch (TelegramApiException e) {
             BotLogger.error(TagNameConst.LOGTAG_TEST, e);

@@ -13,6 +13,8 @@ import telegramm.consts.TagNameConst;
 import telegramm.services.Emoji;
 import telegramm.services.MapDeserializationService;
 
+import static telegramm.SimpleCommandTelegrammBot.setButtons;
+
 /**
  * create time 26.02.2018
  *
@@ -50,6 +52,8 @@ public class GameCommand extends BotCommand {
             answer.setText(clientMessage);
         }
         try {
+//            answer.enableMarkdown(true);
+//            setButtons(answer);
             absSender.sendMessage(answer);
         } catch (TelegramApiException e) {
             BotLogger.error(TagNameConst.LOGTAG_TEST, e);

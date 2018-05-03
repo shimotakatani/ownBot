@@ -10,6 +10,8 @@ import org.telegram.telegrambots.exceptions.TelegramApiException;
 import org.telegram.telegrambots.logging.BotLogger;
 import telegramm.consts.TagNameConst;
 
+import static telegramm.SimpleCommandTelegrammBot.setButtons;
+
 /**
  * create time 21.02.2018
  *
@@ -39,6 +41,8 @@ public class SimpleHelpCommand extends BotCommand {
         helpMessage.setText(helpMessageBuilder.toString());
 
         try {
+//            helpMessage.enableMarkdown(true);
+//            setButtons(helpMessage);
             absSender.sendMessage(helpMessage);
         } catch (TelegramApiException e) {
             BotLogger.error(TagNameConst.LOGTAG_HELP, e);

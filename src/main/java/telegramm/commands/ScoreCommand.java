@@ -10,6 +10,8 @@ import org.telegram.telegrambots.logging.BotLogger;
 import spring.restClient.TestClient;
 import telegramm.consts.TagNameConst;
 
+import static telegramm.SimpleCommandTelegrammBot.setButtons;
+
 /**
  * create time 09.03.2018
  *
@@ -42,6 +44,8 @@ public class ScoreCommand extends BotCommand {
             answer.setText(clientMessage);
         }
         try {
+//            answer.enableMarkdown(true);
+//            setButtons(answer);
             absSender.sendMessage(answer);
         } catch (TelegramApiException e) {
             BotLogger.error(TagNameConst.LOGTAG_TEST, e);
