@@ -27,8 +27,7 @@ public class SimpleCommandTelegrammBot extends TelegramLongPollingCommandBot {
     private String token;
     private String botUserName;
 
-    public SimpleCommandTelegrammBot(String token, String botUserName, DefaultBotOptions options) {
-        super(options);
+    public SimpleCommandTelegrammBot(String token, String botUserName) {
         this.token = token;
         this.botUserName = botUserName;
         register(new SimpleTestCommand());
